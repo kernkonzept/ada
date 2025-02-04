@@ -1,1 +1,1 @@
-requires: libgnat
+requires: libgnat stdlibs
