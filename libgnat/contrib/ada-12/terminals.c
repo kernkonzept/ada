@@ -1146,7 +1146,9 @@ __gnat_setup_winsize (void *desc ATTRIBUTE_UNUSED,
 #if defined (__APPLE__) || defined (BSD)
 #define USE_OPENPTY
 #elif defined (__linux__)
+#if !defined(L4API_l4f)
 #define USE_GETPT
+#endif
 #elif defined (__sun__)
 #define USE_CLONE_DEVICE "/dev/ptmx"
 #elif defined (_AIX)
@@ -1231,7 +1233,7 @@ allocate_pty_desc (pty_desc **desc) {
       return -1;
     }
 
-#if !defined(__rtems__)
+#if !defined(__rtems__) && !defined(L4API_l4f)
   /* grant access to the slave side */
   grantpt (master_fd);
   /* unlock the terminal */

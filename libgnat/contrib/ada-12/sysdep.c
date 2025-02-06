@@ -933,7 +933,7 @@ __gnat_is_file_not_found_error (int errno_val)
       return 0;
 }
 
-#if defined (__linux__)
+#if defined (__linux__) && ! defined (L4API_l4f)
 
 /* Note well: If this code is modified, it should be tested by hand,
    because automated testing doesn't exercise it.
