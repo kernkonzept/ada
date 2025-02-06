@@ -969,6 +969,25 @@ DEFINES += -DIN_RTS -DSTANDALONE -DL4
 
 include $(L4DIR)/mk/lib.mk
 
+# Upstream does not declare prototypes before function definition
+WARNINGS += -Wno-missing-prototypes -Wno-missing-declarations
+# Upstream contrib code has unused parameters
+WARNINGS += -Wno-unused-parameter
+# Upstream contrib code has non-strict prototypes
+WARNINGS += -Wno-strict-prototypes
+# Upstream code uses bad casts
+WARNINGS += -Wno-bad-cast
+
+# Empty body in non-debug builds
+WARNINGS_raise-gcc.c += -Wno-empty-body
+# Upstream uses casts flagged as bad
+WARNINGS_raise-gcc.c += -Wno-bad-function-cast
+WARNINGS_tracebak.c += -Wno-bad-function-cast
+
+# Upstream defines this on their own
+DEFINES_terminals.c += -U_GNU_SOURCE
+DEFINES_adaint.c += -U_GNU_SOURCE -U__USE_GNU
+
 # We do not have an RTS when building this
 ADACFLAGS := $(filter-out --RTS%,$(ADACFLAGS))
 
