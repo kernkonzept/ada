@@ -576,8 +576,7 @@ __gnat_error_handler (int sig, siginfo_t *si ATTRIBUTE_UNUSED, void *ucontext)
   Raise_From_Signal_Handler (exception, msg);
 }
 
-//Not L4: #ifndef __ia64__
-#if defined(__ia64__) || defined(__L4__)
+#if defined(__ia64__) || defined(L4API_l4f)
 #define HAVE_GNAT_ALTERNATE_STACK 1
 /* This must be in keeping with System.OS_Interface.Alternate_Stack_Size.  */
 char __gnat_alternate_stack[32 * 1024];

@@ -958,7 +958,8 @@ ADA_ALI_INSTALL_PATH=$(OBJ_BASE)/include/contrib/ada/adalib
 vpath %.c $(CONTRIB_DIR)
 
 
-ADAC = gcc-$(GNATMAJORVERSION)
+ADAC = $(CC)
+
 # Only search the builddir and main contrib dir, not the dir of the src file
 # This avoids pulling in "generic" variants of ads files we installed specific
 # versions for

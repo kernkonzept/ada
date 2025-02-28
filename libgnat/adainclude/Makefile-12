@@ -75,7 +75,7 @@ GNATRTL_128BIT_PAIRS = \
   s-scaval.adb<libgnat/s-scaval__128.adb
 
 # From x86 Linux
-LIBGNAT_TARGET_PAIRS = \
+LIBGNAT_TARGET_PAIRS-all-x86 = \
   a-intnam.ads<libgnarl/a-intnam__linux.ads \
   a-synbar.adb<libgnarl/a-synbar__posix.adb \
   a-synbar.ads<libgnarl/a-synbar__posix.ads \
@@ -91,12 +91,9 @@ LIBGNAT_TARGET_PAIRS = \
   $(ATOMICS_TARGET_PAIRS) \
   system.ads<libgnat/system-linux-x86.ads
 
-LIBGNAT_TARGET_PAIRS-amd64 += $(X86_64_TARGET_PAIRS) $(GNATRTL_128BIT_PAIRS)
-LIBGNAT_TARGET_PAIRS-x86   += $(X86_TARGET_PAIRS)
+LIBGNAT_TARGET_PAIRS-all-x86 += s-tsmona.adb<libgnat/s-tsmona__linux.adb
 
-LIBGNAT_TARGET_PAIRS += s-tsmona.adb<libgnat/s-tsmona__linux.adb
-
-LIBGNAT_TARGET_PAIRS += \
+LIBGNAT_TARGET_PAIRS-all-x86 += \
   s-mudido.adb<libgnarl/s-mudido__affinity.adb \
   s-osinte.ads<libgnarl/s-osinte__linux.ads \
   s-osprim.adb<libgnat/s-osprim__posix.adb \
@@ -105,11 +102,42 @@ LIBGNAT_TARGET_PAIRS += \
   s-tasinf.adb<libgnarl/s-tasinf__linux.adb \
   s-taspri.ads<libgnarl/s-taspri__posix.ads
 
-#TODO right version? arm?
+LIBGNAT_TARGET_PAIRS-amd64 += $(LIBGNAT_TARGET_PAIRS-all-x86) \
+	                      $(X86_64_TARGET_PAIRS) $(GNATRTL_128BIT_PAIRS)
+LIBGNAT_TARGET_PAIRS-x86   += $(LIBGNAT_TARGET_PAIRS-all-x86) \
+	                      $(X86_TARGET_PAIRS)
+
+# From aarch64 Linux
+LIBGNAT_TARGET_PAIRS-arm64 = \
+  a-exetim.adb<libgnarl/a-exetim__posix.adb \
+  a-exetim.ads<libgnarl/a-exetim__default.ads \
+  a-intnam.ads<libgnarl/a-intnam__linux.ads \
+  a-nallfl.ads<libgnat/a-nallfl__wraplf.ads \
+  a-synbar.adb<libgnarl/a-synbar__posix.adb \
+  a-synbar.ads<libgnarl/a-synbar__posix.ads \
+  s-dorepr.adb<libgnat/s-dorepr__fma.adb \
+  s-inmaop.adb<libgnarl/s-inmaop__posix.adb \
+  s-intman.adb<libgnarl/s-intman__posix.adb \
+  s-linux.ads<libgnarl/s-linux.ads \
+  $(TRASYM_DWARF_UNIX_PAIRS) \
+  s-mudido.adb<libgnarl/s-mudido__affinity.adb \
+  s-osinte.ads<libgnarl/s-osinte__linux.ads \
+  s-osinte.adb<libgnarl/s-osinte__posix.adb \
+  s-osprim.adb<libgnat/s-osprim__posix.adb \
+  s-taprop.adb<libgnarl/s-taprop__linux.adb \
+  s-tasinf.ads<libgnarl/s-tasinf__linux.ads \
+  s-tasinf.adb<libgnarl/s-tasinf__linux.adb \
+  s-tpopsp.adb<libgnarl/s-tpopsp__tls.adb \
+  s-taspri.ads<libgnarl/s-taspri__posix.ads \
+  $(ATOMICS_TARGET_PAIRS) \
+  $(ATOMICS_BUILTINS_TARGET_PAIRS) \
+  $(GNATRTL_128BIT_PAIRS) \
+  system.ads<libgnat/system-linux-arm.ads
+
 #TODO remove variants from include?
 # This comes from the exception handling mechanism in Makefile.rtl
 
-ifneq ($(filter arm arm64,$(BUILD_ARCH)),) #arm exception handling
+ifneq ($(filter arm,$(BUILD_ARCH)),) #arm exception handling
 LIBGNAT_TARGET_PAIRS += s-excmac.ads<libgnat/s-excmac__arm.ads \
                         s-excmac.adb<libgnat/s-excmac__arm.adb
 else # gcc exception handling
