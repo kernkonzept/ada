@@ -987,7 +987,8 @@ WARNINGS_tracebak.c += -Wno-bad-function-cast
 
 # Upstream defines this on their own
 DEFINES_terminals.c += -U_GNU_SOURCE
-DEFINES_adaint.c += -U_GNU_SOURCE -U__USE_GNU
+DEFINES_adaint.c += -D_GNU_SOURCE
+DEFINES_sysdep.c += -D_GNU_SOURCE
 
 # We do not have an RTS when building this
 ADACFLAGS := $(filter-out --RTS%,$(ADACFLAGS))
