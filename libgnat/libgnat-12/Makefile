@@ -989,6 +989,7 @@ WARNINGS_tracebak.c += -Wno-bad-function-cast
 DEFINES_terminals.c += -U_GNU_SOURCE
 DEFINES_adaint.c += -D_GNU_SOURCE
 DEFINES_sysdep.c += -D_GNU_SOURCE
+DEFINES_env.c += -D_GNU_SOURCE
 
 # We do not have an RTS when building this
 ADACFLAGS := $(filter-out --RTS%,$(ADACFLAGS))
