@@ -16,6 +16,8 @@ else ifeq ($(GNATMAJORVERSION),)
     $(info $(shell echo -e '\033[32mlibgnat requires the gnatmake ($(ADAC)) compiler to be installed\033[0m'))
 else ifeq ($(wildcard libgnat-$(GNATMAJORVERSION)),)
     $(info $(shell echo -e '\033[32mVersion of gnatmake $(adac_verinfo) not supported. Supported: $(supported_versions)\033[0m'))
+else ifneq ($(GCCMAJORVERSION),$(GNATMAJORVERSION))
+    $(info $(shell echo -e '\033[32mCC ($(CC)) and ADAC ($(ADAC)) need to be the same version. ($(GCCMAJORVERSION) != $(GNATMAJORVERSION))'))
 else
   TARGET := adainclude libgnat-$(GNATMAJORVERSION) xoscons xsnamest
 endif
